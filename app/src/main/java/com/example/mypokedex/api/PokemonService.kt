@@ -10,7 +10,7 @@ interface PokemonService {
     @GET("pokemon")
     suspend fun getPokemonList(@Query("offset") offset : Int, @Query("limit") limit: Int): PokemonList
 
-    @GET("pokemon/{name}")
+    @GET("pokemon/{id}")
     suspend fun getPokemonDetail(@Path("name") name: String): PokemonDetail
 
 }

@@ -34,4 +34,8 @@
     <string name="user_not_found">User not found</string>
     <string name="welcome_message">Welcome, %s!</string>
     <string name="back_button">back_button</string>
+    <string name="pokemon_image">pokemon_image</string>
+    <string name="pikachu">Pikachu</string>
+    <string name="n_0001"><![CDATA[N.º  0001]]></string>
+    <string name="bulbasaur">Bulbasaur</string>
 </resources>
