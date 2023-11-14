@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "45524445382",
+    "project_id": "mypokedex-5afaf",
+    "storage_bucket": "mypokedex-5afaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45524445382:android:95c43ce9287314094a0fc7",
+        "android_client_info": {
+          "package_name": "com.example.mypokedex"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAviPA8ea7Zze8oomvNVP0D2pO2VJ9WtZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

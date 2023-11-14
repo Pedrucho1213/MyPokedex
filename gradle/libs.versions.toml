@@ -13,6 +13,8 @@ material = "1.9.0"
 constraintlayout = "2.1.4"
 picasso = "2.71828"
 retrofit = "2.9.0"
+firebase-auth = "22.1.2"
+
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity-ktx" }
@@ -29,6 +31,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebase-auth" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
