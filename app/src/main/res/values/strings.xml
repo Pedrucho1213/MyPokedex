@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">MyPokedex</string>
+    <string name="logo_app">logo app</string>
+    <string name="login">Login</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_post">New Post</string>
+    <string name="publish_post">Publish post</string>
+    <string name="content">Content</string>
+    <string name="title">Title</string>
+    <string name="please_provide_your_credentials">Please provide your credentials</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="search_by_author_title_or_content">Search by author, title or content</string>
+    <string name="search">Search</string>
+    <string name="title_dialog">Are you sure ?</string>
+    <string name="body_dialog">Are you sure you want to log out ?</string>
+    <string name="accept">Yes</string>
+    <string name="decline">Cancel</string>
+    <string name="add_new_post">Add new Post</string>
+    <string name="please_fill_the_input_below_here">Please fill the input below here</string>
+    <string name="create_account">Create Account</string>
+    <string name="full_name">FULL NAME</string>
+    <string name="email_field">EMAIL</string>
+    <string name="password_field">PASSWORD</string>
+    <string name="confirm_password_field">CONFIRM PASSWORD</string>
+    <string name="sign_up_button">SIGN UP</string>
+    <string name="la_alegr_a_de_vivir_es_el_mayor_regalo_que_podemos_dar_y_recib">La alegría de vivir es el mayor regalo que podemos dar y recib...</string>
+    <string name="brunch_this_weekend">Brunch this weekend ?</string>
+    <string name="_25_mins_ago">25 mins ago</string>
+    <string name="divider">---</string>
+    <string name="ali_connors">Ali Connors</string>
+    <string name="user_not_found">User not found</string>
+    <string name="welcome_message">Welcome, %s!</string>
+    <string name="back_button">back_button</string>
 </resources>
