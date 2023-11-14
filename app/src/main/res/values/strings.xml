@@ -36,6 +36,7 @@
     <string name="back_button">back_button</string>
     <string name="pokemon_image">pokemon_image</string>
     <string name="pikachu">Pikachu</string>
-    <string name="n_0001"><![CDATA[N.º  0001]]></string>
+    <string name="n_0001"><![CDATA[N.º  ]]></string>
     <string name="bulbasaur">Bulbasaur</string>
+    <string name="este_pok_mon_de_naturaleza_agresiva_ataca_en_combate_con_su_cola_llameante_y_hace_trizas_al_rival_con_sus_afiladas_garras">Este Pokémon de naturaleza agresiva ataca en combate con su cola llameante y hace trizas al rival con sus afiladas garras.</string>
 </resources>

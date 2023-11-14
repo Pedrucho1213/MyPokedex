@@ -63,7 +63,9 @@ dependencies {
     implementation (libs.androidx.preference.ktx)
 
     implementation (libs.retrofit)
-    implementation (libs.converter.moshi)
+    implementation ("com.squareup.retrofit2:converter-gson:2.4.0")
+
+
     implementation (libs.glide)
     implementation (libs.picasso)
 
@@ -71,6 +73,9 @@ dependencies {
     implementation (libs.androidx.lifecycle.livedata.ktx)
 
     implementation (libs.androidx.activity.ktx)
+
+    implementation (libs.androidx.browser)
+
 }
 
 

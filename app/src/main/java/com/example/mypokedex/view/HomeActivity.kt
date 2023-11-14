@@ -55,7 +55,7 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
     }
 
     private fun initRecyclerView() {
-        adapter = PokemonListAdapter(pokemons)
+        adapter = PokemonListAdapter(pokemons, context = this)
         binding.pokemonsRv.layoutManager = LinearLayoutManager(this)
         binding.pokemonsRv.adapter = adapter
     }

@@ -1,11 +1,10 @@
 package com.example.mypokedex.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
+import com.google.gson.annotations.SerializedName
+
 data class User(
-    @Json(name = "uid")             var uid: String? = null,
-    @Json(name = "fullName")   var fullName: String? = null,
-    @Json(name = "email")         var email: String? = null,
+    @SerializedName("uid") val uid: String? = null,
+    @SerializedName("fullName") val fullName: String? = null,
+    @SerializedName("email") val email: String? = null
 )

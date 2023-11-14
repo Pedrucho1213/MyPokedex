@@ -9,35 +9,46 @@ import com.example.mypokedex.model.PokemonDetail
 import com.example.mypokedex.model.PokemonItem
 import kotlinx.coroutines.launch
 
-class PokemonViewModel: ViewModel() {
+class PokemonViewModel : ViewModel() {
 
     private val pokemonRepository = PokemonRepository()
     private val session = AuthFirebase()
     private val signOut = MutableLiveData<Boolean>()
 
 
-
     val pokemonList = MutableLiveData<List<PokemonItem>>()
     val pokemonDetail = MutableLiveData<PokemonDetail>()
-    val apiError = MutableLiveData<Throwable>()
+    val pokemonDescription = MutableLiveData<PokemonDetail>()
+    private val apiError = MutableLiveData<Throwable>()
 
-    fun fetchPokemonList(offset: Int = 0, limit : Int = 20){
+    fun fetchPokemonList(offset: Int = 0, limit: Int = 20) {
         viewModelScope.launch {
             try {
                 val result = pokemonRepository.getPokemonList(offset, limit)
                 pokemonList.value = result.results
-            }catch (error: Throwable){
+            } catch (error: Throwable) {
                 apiError.value = error
             }
         }
     }
 
-    fun fetchPokemonDetail(name: String){
+    fun fetchPokemonDetail(name: String) {
         viewModelScope.launch {
             try {
                 val result = pokemonRepository.getPokemonDetail(name)
                 pokemonDetail.value = result
-            }catch (error: Throwable){
+            } catch (error: Throwable) {
+                apiError.value = error
+            }
+        }
+    }
+
+    fun fetchDescription(name: String) {
+        viewModelScope.launch {
+            try {
+                val result = pokemonRepository.getDescription(name)
+                pokemonDescription.value = result
+            } catch (error: Throwable) {
                 apiError.value = error
             }
         }

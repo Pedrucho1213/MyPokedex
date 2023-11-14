@@ -1,142 +1,143 @@
 package com.example.mypokedex.model
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 data class PokemonDetail(
-    val id: Int,
-    val name: String,
-    val baseExperience: Int,
-    val height: Int,
-    val isDefault: Boolean,
-    val order: Int,
-    val weight: Int,
-    val sprites: Sprites,
-    val abilities: List<Ability>,
-    val forms: List<Form>,
-    val gameIndices: List<GameIndex>,
-    val heldItems: List<HeldItem>,
-    val locationAreaEncounters: String,
-    val moves: List<Move>,
-    val species: Species,
-    val stats: List<Stat>,
-    val types: List<Type>,
-    val flavorTextEntries: List<FlavorTextEntry>,
+    @Expose @SerializedName("id") val id: Int,
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("base_experience") val baseExperience: Int,
+    @Expose @SerializedName("height") val height: Int,
+    @Expose @SerializedName("is_default") val isDefault: Boolean,
+    @Expose @SerializedName("order") val order: Int,
+    @Expose @SerializedName("weight") val weight: Int,
+    @Expose @SerializedName("sprites") val sprites: Sprites,
+    @Expose @SerializedName("abilities") val abilities: List<Ability>,
+    @Expose @SerializedName("forms") val forms: List<Form>,
+    @Expose @SerializedName("game_indices") val gameIndices: List<GameIndex>,
+    @Expose @SerializedName("held_items") val heldItems: List<HeldItem>,
+    @Expose @SerializedName("location_area_encounters") val locationAreaEncounters: String,
+    @Expose @SerializedName("moves") val moves: List<Move>,
+    @Expose @SerializedName("species") val species: Species,
+    @Expose @SerializedName("stats") val stats: List<Stat>,
+    @Expose @SerializedName("types") val types: List<Type>,
+    @Expose @SerializedName("flavor_text_entries") val flavorTextEntries: List<FlavorTextEntry>,
+// added property for the Spanish flavor text entries
     var spanishFlavorTextEntries: List<String> = emptyList()
 )
 
 data class FlavorTextEntry(
-    val flavorText: String,
-    val language: Language
+    @Expose @SerializedName("flavor_text") val flavorText: String,
+    @Expose @SerializedName("language") val language: Language
 )
 
 data class Language(
-    val name: String,
-    val url: String
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("url") val url: String
 )
-
 data class Sprites(
-    val backDefault: String?,
-    val backFemale: String?,
-    val backShiny: String?,
-    val backShinyFemale: String?,
-    val frontDefault: String?,
-    val frontFemale: String?,
-    val frontShiny: String?,
-    val frontShinyFemale: String?
+    @Expose @SerializedName("back_default") val backDefault: String?,
+    @Expose @SerializedName("back_female") val backFemale: String?,
+    @Expose @SerializedName("back_shiny") val backShiny: String?,
+    @Expose @SerializedName("back_shiny_female") val backShinyFemale: String?,
+    @Expose @SerializedName("front_default") val frontDefault: String?,
+    @Expose @SerializedName("front_female") val frontFemale: String?,
+    @Expose @SerializedName("front_shiny") val frontShiny: String?,
+    @Expose @SerializedName("front_shiny_female") val frontShinyFemale: String?
 )
 
 data class Ability(
-    val ability: AbilityInfo,
-    val isHidden: Boolean,
-    val slot: Int
+    @Expose @SerializedName("ability") val ability: AbilityInfo,
+    @Expose @SerializedName("is_hidden") val isHidden: Boolean,
+    @Expose @SerializedName("slot") val slot: Int
 )
-
 data class PokeResult (
-    val name: String,
-    val url: String
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("url") val url: String
 )
-
 data class AbilityInfo(
-    val name: String,
-    val url: String
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("url") val url: String
 )
 
 data class Form(
-    val name: String,
-    val url: String
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("url") val url: String
 )
 
 data class GameIndex(
-    val gameIndex: Int,
-    val version: Version
+    @Expose @SerializedName("game_index") val gameIndex: Int,
+    @Expose @SerializedName("version") val version: Version
 )
 
 data class Version(
-    val name: String,
-    val url: String
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("url") val url: String
 )
 
 data class HeldItem(
-    val item: Item,
-    val versionDetails: List<VersionDetail>
+    @Expose @SerializedName("item") val item: Item,
+    @Expose @SerializedName("version_details") val versionDetails: List<VersionDetail>
 )
 
 data class Item(
-    val name: String,
-    val url: String
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("url") val url: String
 )
 
 data class VersionDetail(
-    val rarity: Int,
-    val version: Version
+    @Expose @SerializedName("rarity") val rarity: Int,
+    @Expose @SerializedName("version") val version: Version
 )
 
 data class Move(
-    val move: MoveInfo,
-    val versionGroupDetails: List<VersionGroupDetail>
+    @Expose @SerializedName("move") val move: MoveInfo,
+    @Expose @SerializedName("version_group_details") val versionGroupDetails: List<VersionGroupDetail>
 )
 
 data class MoveInfo(
-    val name: String,
-    val url: String
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("url") val url: String
 )
 
 data class VersionGroupDetail(
-    val levelLearnedAt: Int,
-    val moveLearnMethod: MoveLearnMethod,
-    val versionGroup: VersionGroup
+    @Expose @SerializedName("level_learned_at") val levelLearnedAt: Int,
+    @Expose @SerializedName("move_learn_method") val moveLearnMethod: MoveLearnMethod,
+    @Expose @SerializedName("version_group") val versionGroup: VersionGroup
 )
 
 data class MoveLearnMethod(
-    val name: String,
-    val url: String
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("url") val url: String
 )
 
 data class VersionGroup(
-    val name: String,
-    val url: String
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("url") val url: String
 )
 
 data class Species(
-    val name: String,
-    val url: String
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("url") val url: String
 )
 
 data class Stat(
-    val baseStat: Int,
-    val effort: Int,
-    val stat: StatInfo
+    @Expose @SerializedName("base_stat") val baseStat: Int,
+    @Expose @SerializedName("effort") val effort: Int,
+    @Expose @SerializedName("stat") val stat: StatInfo
 )
 
 data class StatInfo(
-    val name: String,
-    val url: String
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("url") val url: String
 )
 
 data class Type(
-    val slot: Int,
-    val type: TypeInfo
+    @Expose @SerializedName("slot") val slot: Int,
+    @Expose @SerializedName("type") val type: TypeInfo
 )
 
 data class TypeInfo(
-    val name: String,
-    val url: String
+    @Expose @SerializedName("name") val name: String,
+    @Expose @SerializedName("url") val url: String
 )

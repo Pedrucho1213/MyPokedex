@@ -1,7 +1,7 @@
 package com.example.mypokedex.api
 
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBuilder {
     private const val BASE_URL = "https://pokeapi.co/api/v2/"
@@ -10,7 +10,7 @@ object RetrofitBuilder {
     fun getRetrofit(): PokemonService {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(PokemonService::class.java)
     }
