@@ -1,7 +1,11 @@
 package com.example.mypokedex.view
 
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -54,12 +58,39 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun handleUserActions(name: String) {
-        val url = getPokemonUrl(name)
-        handleBackButton()
-        handleMoreDetailsButton(url)
-        handleShareButton(url)
-        handleTabsEvents()
+    private fun addStatsToTextView(poke: PokemonDetail) {
+        val text = SpannableStringBuilder()
+        for (stat in poke.stats) {
+            val propName = SpannableStringBuilder(stat.stat.name + ": ").apply {
+                setSpan(
+                    StyleSpan(Typeface.BOLD),
+                    0,
+                    this.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+            text.append(propName).append(stat.baseStat.toString()).append("\n")
+        }
+
+        runOnUiThread {
+            binding.pokemonDetailTxr.text = text
+        }
+    }
+
+    private fun addPhysicalMeasurementsToTextView(poke: PokemonDetail) {
+        val text = SpannableStringBuilder()
+        val height = SpannableStringBuilder("Height: ").apply {
+            setSpan(StyleSpan(Typeface.BOLD), 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+        val weight = SpannableStringBuilder("Weight: ").apply {
+            setSpan(StyleSpan(Typeface.BOLD), 0, this.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+        text.append(height).append(poke.height.toString()).append("\n")
+            .append(weight).append(poke.weight.toString()).append("\n")
+
+        runOnUiThread {
+            binding.pokemonDetailTxr.text = text
+        }
     }
 
     private fun handleTabsEvents() {
@@ -69,17 +100,23 @@ class DetailActivity : AppCompatActivity() {
                 when (position) {
                     0 -> {
                         binding.aboutLabel.text = "Description:"
-                        binding.pokemonDetailTxr.text = ""
+                        viewModel.pokemonDescription?.let { desc ->
+                            renderDescription(desc.value)
+                        }
                     }
 
                     1 -> {
                         binding.aboutLabel.text = "Physical mesaruments:"
-                        binding.pokemonDetailTxr.text = ""
+                        viewModel.pokemonDetail.value?.let { poke ->
+                            addPhysicalMeasurementsToTextView(poke)
+                        }
                     }
 
                     2 -> {
-                        binding.aboutLabel.text = "Weakness:"
-                        binding.pokemonDetailTxr.text = ""
+                        binding.aboutLabel.text = "Stats:"
+                        viewModel.pokemonDetail.value?.let { poke ->
+                            addStatsToTextView(poke)
+                        }
                     }
                 }
             }
@@ -95,6 +132,15 @@ class DetailActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+
+    private fun handleUserActions(name: String) {
+        val url = getPokemonUrl(name)
+        handleBackButton()
+        handleMoreDetailsButton(url)
+        handleShareButton(url)
+        handleTabsEvents()
     }
 
 
@@ -165,6 +211,7 @@ class DetailActivity : AppCompatActivity() {
             }
         startActivity(shareIntent)
     }
+
     private fun showToastMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
