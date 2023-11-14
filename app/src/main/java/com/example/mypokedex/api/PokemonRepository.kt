@@ -14,7 +14,7 @@ class PokemonRepository {
         return pokemonService.getPokemonDetail(name)
     }
 
-    suspend fun getDescription(name: String): PokemonDetail{
-        return pokemonService.getPokemonSpecies(name)
+    suspend fun getDescription(id: Int): PokemonDetail {
+        return pokemonService.getPokemonSpecies(id)
     }
 }

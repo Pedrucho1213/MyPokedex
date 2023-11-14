@@ -15,16 +15,19 @@ class PokemonViewModel : ViewModel() {
     private val session = AuthFirebase()
     private val signOut = MutableLiveData<Boolean>()
 
-
     val pokemonList = MutableLiveData<List<PokemonItem>>()
     val pokemonDetail = MutableLiveData<PokemonDetail>()
     val pokemonDescription = MutableLiveData<PokemonDetail>()
-    private val apiError = MutableLiveData<Throwable>()
+    val apiError = MutableLiveData<Throwable>()
 
-    fun fetchPokemonList(offset: Int = 0, limit: Int = 20) {
+    private var currentPage = 0
+    private val itemsPerPage = 10
+
+    fun fetchPokemonList() {
         viewModelScope.launch {
             try {
-                val result = pokemonRepository.getPokemonList(offset, limit)
+                val offset = currentPage * itemsPerPage
+                val result = pokemonRepository.getPokemonList(offset, itemsPerPage)
                 pokemonList.value = result.results
             } catch (error: Throwable) {
                 apiError.value = error
@@ -43,11 +46,22 @@ class PokemonViewModel : ViewModel() {
         }
     }
 
-    fun fetchDescription(name: String) {
+    fun fetchDescription(id: Int) {
         viewModelScope.launch {
             try {
-                val result = pokemonRepository.getDescription(name)
+                val result = pokemonRepository.getDescription(id)
                 pokemonDescription.value = result
+            } catch (error: Throwable) {
+                apiError.value = error
+            }
+        }
+    }
+
+    fun searchPokemon(name: String) {
+        viewModelScope.launch {
+            try {
+                val result = pokemonRepository.getPokemonDetail(name)
+                pokemonDetail.value = result
             } catch (error: Throwable) {
                 apiError.value = error
             }
@@ -61,4 +75,8 @@ class PokemonViewModel : ViewModel() {
         return signOut
     }
 
+    fun loadMorePokemons() {
+        currentPage++
+        fetchPokemonList()
+    }
 }

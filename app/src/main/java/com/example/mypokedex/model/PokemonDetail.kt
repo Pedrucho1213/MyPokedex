@@ -22,6 +22,7 @@ data class PokemonDetail(
     @Expose @SerializedName("stats") val stats: List<Stat>,
     @Expose @SerializedName("types") val types: List<Type>,
     @Expose @SerializedName("flavor_text_entries") val flavorTextEntries: List<FlavorTextEntry>,
+
 // added property for the Spanish flavor text entries
     var spanishFlavorTextEntries: List<String> = emptyList()
 )

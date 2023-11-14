@@ -8,9 +8,11 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mypokedex.R
 import com.example.mypokedex.adapters.pokemonList.PokemonListAdapter
 import com.example.mypokedex.databinding.ActivityHomeBinding
@@ -25,10 +27,7 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
     private lateinit var binding: ActivityHomeBinding
     private lateinit var adapter: PokemonListAdapter
     private var pokemons = mutableListOf<PokemonItem>()
-    private val viewModel by lazy {
-        ViewModelProvider(this)[PokemonViewModel::class.java]
-    }
-
+    private val viewModel: PokemonViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -39,16 +38,14 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
         getAllData()
     }
 
-
     private fun getFavorites() {
         pokemons.clear()
     }
 
     private fun getAllData() {
-        pokemons.clear()
-        viewModel.fetchPokemonList(0, 3)
+        viewModel.fetchPokemonList()
         viewModel.pokemonList.observe(this) { pokemonList ->
-            pokemons = pokemonList.toMutableList()
+            pokemons.addAll(pokemonList)
             adapter.updateData(pokemons)
             initRecyclerView()
         }
@@ -77,6 +74,18 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
             binding.searchTxt.clearFocus()
             currentFocus?.clearFocus()
         }
+        binding.pokemonsRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+
+                if (lastVisibleItemPosition == totalItemCount - 1 && !binding.searchTxt.isNotEmpty()) {
+                    viewModel.loadMorePokemons()
+                }
+            }
+        })
     }
 
     private fun handleMyFavoritesButton(): Boolean {
@@ -145,11 +154,32 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        TODO("Not yet implemented")
+        val query = binding.searchTxt.query
+        performSearch(query.toString())
+        return true
+    }
+
+    private fun performSearch(query: String) {
+        if (query.isNotEmpty()) {
+            val filteredPoke = pokemons.filter { poke ->
+                poke.name.contains(query, ignoreCase = true) ?: false
+            }
+            if (filteredPoke.isNotEmpty()) {
+                adapter.updateData(filteredPoke)
+            }else{
+                viewModel.searchPokemon(query)
+                viewModel.pokemonDetail.observe(this){
+                    val result = PokemonItem(it.name, "")
+                    adapter.updateData(listOf( result))
+                }
+            }
+        } else {
+            adapter.updateData(pokemons)
+        }
     }
 
 }

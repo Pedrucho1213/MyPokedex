@@ -2,6 +2,7 @@ package com.example.mypokedex.view
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
@@ -30,7 +31,6 @@ class DetailActivity : AppCompatActivity() {
 
         val name: String = intent.getStringExtra("name") ?: return
         fetchPokemonData(name)
-        fetchDescription(name)
         subscribeObservers()
         handleUserActions(name)
     }
@@ -38,12 +38,19 @@ class DetailActivity : AppCompatActivity() {
     private fun subscribeObservers() {
         viewModel.pokemonDetail.observe(this, Observer { poke ->
             poke?.let {
+                fetchDescription(it.id)
                 renderPokemonDetails(it)
             }
         })
 
         viewModel.pokemonDescription.observe(this, Observer { pokemon ->
-            renderDescription(pokemon)
+            pokemon?.let {
+                renderDescription(it)
+            }
+        })
+
+        viewModel.apiError.observe(this, Observer {
+            Log.i("Error", it.toString())
         })
     }
 
@@ -116,9 +123,9 @@ class DetailActivity : AppCompatActivity() {
         viewModel.fetchPokemonDetail(name)
     }
 
-    private fun fetchDescription(name: String) {
+    private fun fetchDescription(id: Int) {
         // Some logic may be needed to validate the id
-        viewModel.fetchDescription(name)
+        viewModel.fetchDescription(id)
     }
 
     private fun renderPokemonDetails(poke: PokemonDetail) {
