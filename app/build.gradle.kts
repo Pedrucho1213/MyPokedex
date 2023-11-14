@@ -59,6 +59,9 @@ dependencies {
     // Firebase Authentication library
     implementation (libs.firebase.auth)
 
+    // SharedPreference library
+    implementation (libs.androidx.preference.ktx)
+
     implementation (libs.retrofit)
     implementation (libs.converter.moshi)
     implementation (libs.glide)

@@ -14,6 +14,7 @@ constraintlayout = "2.1.4"
 picasso = "2.71828"
 retrofit = "2.9.0"
 firebase-auth = "22.1.2"
+preference-ktx = "1.2.1"
 
 
 [libraries]
@@ -32,6 +33,8 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebase-auth" }
+androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preference-ktx" }
+
 
 
 [plugins]
