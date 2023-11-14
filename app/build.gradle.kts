@@ -53,4 +53,11 @@ dependencies {
     implementation (libs.converter.moshi)
     implementation (libs.glide)
     implementation (libs.picasso)
+
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+    implementation (libs.androidx.lifecycle.livedata.ktx)
+
+    implementation (libs.androidx.activity.ktx)
 }
+
+
