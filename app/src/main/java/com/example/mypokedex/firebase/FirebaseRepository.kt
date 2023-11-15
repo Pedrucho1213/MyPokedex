@@ -16,9 +16,10 @@ class FirebaseRepository {
     fun savePokemonToFirestore(name: String): LiveData<MutableList<PokemonItem>> {
         val session = auth.currentUser?.email
         if (session != null) {
-            // Check if the name already exists in the collection
+            // Check if the name already exists for this user
             fireStore.collection("Pokemons")
                 .whereEqualTo("name", name)
+                .whereEqualTo("email", session)     // we add this line to check if a Pokemon is already assigned to the user
                 .get()
                 .addOnSuccessListener { documents ->
                     if (documents.isEmpty) {
@@ -36,7 +37,7 @@ class FirebaseRepository {
                                 println("Failed to save the Pokemon: ${exception.message}")
                             }
                     } else {
-                        println("The name already exists.")
+                        println("The Pokemon already exists for this user.")
                     }
                 }
                 .addOnFailureListener { exception ->

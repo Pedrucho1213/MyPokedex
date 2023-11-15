@@ -97,7 +97,6 @@ class SignUpActivity : AppCompatActivity() {
         viewModel.saveUserData(user).observe(this) { result ->
             if (result.isSuccessful) {
                 saveUserPreferences(uid, fullName, email)
-                showWelcomeMessage()
                 navigateToSignInActivity()
             }
         }
@@ -107,11 +106,6 @@ class SignUpActivity : AppCompatActivity() {
         PreferenceManager.saveUID(this, uid)
         PreferenceManager.saveName(this, fullName)
         PreferenceManager.saveEmail(this, email)
-    }
-
-    private fun showWelcomeMessage() {
-        val fullName = PreferenceManager.getName(this)
-        Toast.makeText(this, "Bienvenido $fullName", Toast.LENGTH_SHORT).show()
     }
 
     private fun navigateToSignInActivity() {

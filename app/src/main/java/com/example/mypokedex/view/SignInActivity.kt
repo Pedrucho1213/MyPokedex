@@ -85,6 +85,11 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+    private fun showWelcomeMessage() {
+        val fullName = PreferenceManager.getName(this)
+        Toast.makeText(this, "Bienvenido $fullName", Toast.LENGTH_SHORT).show()
+    }
+
     private fun getUserData(email: String) {
         viewModel.getCredentials(email).observe(this) { user ->
             if (user != null) {
