@@ -14,6 +14,8 @@ MyPokedex is an Android application that allows users to visualize pokemon's and
 - **Firebase Authentication**: Firebase Authentication is used to allow users to authenticate in the application using their email and password.
 - **Session checking**: The application performs session checks to ensure that only authenticated users can access and visualize pokemon's.
 - **Shared Preferences**: Shared Preferences are used to store information locally, such as the user's session state.
+- - **Internal Browser**: Internal browser allows to display content dynamically directly from the web page of each pokemon in question.
+
 
 ## Technologies Used
 
