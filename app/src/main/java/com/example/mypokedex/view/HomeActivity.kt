@@ -29,6 +29,7 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
     private var pokemons = mutableListOf<PokemonItem>()
     private val viewModel: PokemonViewModel by viewModels()
     private var favorities = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -41,23 +42,27 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
 
     private fun getFavorites() {
         favorities = true
+        pokemons.clear()
+        // remove observer from all data before observing favorites
+        viewModel.pokemonList.removeObservers(this)
         viewModel.getPokemonFromFirestore()
         viewModel.pokemonFavorities.observe(this) { pokemonList ->
-            pokemons.clear()
             pokemons.addAll(pokemonList)
             adapter.updateData(pokemons)
-            initRecyclerView()
+            adapter.notifyDataSetChanged()
         }
     }
 
     private fun getAllData() {
         favorities = false
         pokemons.clear()
+        // remove observer from favorites before observing all data
+        viewModel.pokemonFavorities.removeObservers(this)
         viewModel.fetchPokemonList()
         viewModel.pokemonList.observe(this) { pokemonList ->
             pokemons.addAll(pokemonList)
             adapter.updateData(pokemons)
-            initRecyclerView()
+            adapter.notifyDataSetChanged()
         }
     }
 
@@ -66,6 +71,7 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
         binding.pokemonsRv.layoutManager = LinearLayoutManager(this)
         binding.pokemonsRv.adapter = adapter
     }
+
 
     private fun setEvents() {
 
