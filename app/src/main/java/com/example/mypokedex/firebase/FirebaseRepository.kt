@@ -13,7 +13,7 @@ class FirebaseRepository {
     private val mutableData = MutableLiveData<MutableList<PokemonItem>>()
 
 
-    fun savePokemonToFireStore(name: String): LiveData<MutableList<PokemonItem>> {
+    fun savePokemonToFirestore(name: String): LiveData<MutableList<PokemonItem>> {
         val session = auth.currentUser?.email
         if (session != null) {
             // Check if the name already exists in the collection

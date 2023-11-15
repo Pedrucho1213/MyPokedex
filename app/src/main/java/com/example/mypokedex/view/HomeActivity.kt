@@ -41,7 +41,7 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
 
     private fun getFavorites() {
         favorities = true
-        viewModel.getPokemonFromFireStore()
+        viewModel.getPokemonFromFirestore()
         viewModel.pokemonFavorities.observe(this) { pokemonList ->
             pokemons.clear()
             pokemons.addAll(pokemonList)

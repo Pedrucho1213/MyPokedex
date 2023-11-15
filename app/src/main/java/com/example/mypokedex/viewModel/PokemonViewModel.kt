@@ -12,21 +12,25 @@ import kotlinx.coroutines.launch
 
 class PokemonViewModel : ViewModel() {
 
+    // Repositories
     private val pokemonRepository = PokemonRepository()
-    private val firebase = FirebaseRepository()
-    private val session = AuthFirebase()
-    private val signOut = MutableLiveData<Boolean>()
+    private val firebaseRepository = FirebaseRepository()
+    private val authFirebase = AuthFirebase()
 
+    // LiveData
     val saved = MutableLiveData<Boolean>()
     val pokemonList = MutableLiveData<List<PokemonItem>>()
     val pokemonFavorities = MutableLiveData<List<PokemonItem>>()
     val pokemonDetail = MutableLiveData<PokemonDetail>()
     val pokemonDescription = MutableLiveData<PokemonDetail>()
     val apiError = MutableLiveData<Throwable>()
+    val signOutLiveData = MutableLiveData<Boolean>()
 
+    // Pagination
     private var currentPage = 0
     private val itemsPerPage = 10
 
+    // Fetching data
     fun fetchPokemonList() {
         viewModelScope.launch {
             try {
@@ -72,35 +76,36 @@ class PokemonViewModel : ViewModel() {
         }
     }
 
-    fun savePokemonToFireStore(name: String) {
-        firebase.savePokemonToFireStore(name).observeForever {
+    // Firebase operations
+    fun savePokemonToFirestore(name: String) {
+        firebaseRepository.savePokemonToFirestore(name).observeForever {
             println("Pokemon guardado correctamente.")
         }
     }
 
-    fun getPokemonFromFireStore(){
-        firebase.getPokemon().observeForever {
+    fun getPokemonFromFirestore() {
+        firebaseRepository.getPokemon().observeForever {
             pokemonFavorities.value = it
         }
     }
 
-    fun isSavedPokemon(name: String){
-        firebase.isPokemonSaved(name).observeForever {
+    fun isSavedPokemon(name: String) {
+        firebaseRepository.isPokemonSaved(name).observeForever {
             saved.value = it
         }
     }
 
+    // Authentication
     fun signOut(): MutableLiveData<Boolean> {
-        session.sigOut().observeForever {
-            signOut.value = it
+        authFirebase.signOut().observeForever {
+            signOutLiveData.value = it
         }
-        return signOut
+        return signOutLiveData
     }
 
+    // Pagination
     fun loadMorePokemons() {
         currentPage++
         fetchPokemonList()
     }
-
-
 }

@@ -157,7 +157,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun handleFavButton(name: String) {
         binding.likePokemonBtn.setOnClickListener {
-            viewModel.savePokemonToFireStore(name)
+            viewModel.savePokemonToFirestore(name)
             Toast.makeText(this, "Added to My favorites", Toast.LENGTH_SHORT).show()
             finish()
         }

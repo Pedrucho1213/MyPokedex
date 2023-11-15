@@ -68,7 +68,7 @@ class AuthFirebase {
         return credentials
     }
 
-    fun sigOut(): MutableLiveData<Boolean>{
+    fun signOut(): MutableLiveData<Boolean>{
         auth.signOut()
         signOutStatus.value = true
         return  signOutStatus
