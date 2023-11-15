@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mypokedex.api.PokemonRepository
 import com.example.mypokedex.firebase.AuthFirebase
+import com.example.mypokedex.firebase.FirebaseRepository
 import com.example.mypokedex.model.PokemonDetail
 import com.example.mypokedex.model.PokemonItem
 import kotlinx.coroutines.launch
@@ -12,10 +13,13 @@ import kotlinx.coroutines.launch
 class PokemonViewModel : ViewModel() {
 
     private val pokemonRepository = PokemonRepository()
+    private val firebase = FirebaseRepository()
     private val session = AuthFirebase()
     private val signOut = MutableLiveData<Boolean>()
 
+    val saved = MutableLiveData<Boolean>()
     val pokemonList = MutableLiveData<List<PokemonItem>>()
+    val pokemonFavorities = MutableLiveData<List<PokemonItem>>()
     val pokemonDetail = MutableLiveData<PokemonDetail>()
     val pokemonDescription = MutableLiveData<PokemonDetail>()
     val apiError = MutableLiveData<Throwable>()
@@ -68,6 +72,24 @@ class PokemonViewModel : ViewModel() {
         }
     }
 
+    fun savePokemonToFireStore(name: String) {
+        firebase.savePokemonToFireStore(name).observeForever {
+            println("Pokemon guardado correctamente.")
+        }
+    }
+
+    fun getPokemonFromFireStore(){
+        firebase.getPokemon().observeForever {
+            pokemonFavorities.value = it
+        }
+    }
+
+    fun isSavedPokemon(name: String){
+        firebase.isPokemonSaved(name).observeForever {
+            saved.value = it
+        }
+    }
+
     fun signOut(): MutableLiveData<Boolean> {
         session.sigOut().observeForever {
             signOut.value = it
@@ -79,4 +101,6 @@ class PokemonViewModel : ViewModel() {
         currentPage++
         fetchPokemonList()
     }
+
+
 }

@@ -2,11 +2,13 @@ package com.example.mypokedex.view
 
 import android.graphics.Typeface
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
@@ -24,7 +26,7 @@ import com.squareup.picasso.Picasso
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val viewModel: PokemonViewModel by lazy {
-        ViewModelProvider(this).get(PokemonViewModel::class.java)
+        ViewModelProvider(this)[PokemonViewModel::class.java]
     }
     private val defaultLang = "es"
 
@@ -134,15 +136,32 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-
     private fun handleUserActions(name: String) {
         val url = getPokemonUrl(name)
         handleBackButton()
         handleMoreDetailsButton(url)
         handleShareButton(url)
         handleTabsEvents()
+        handleFavButton(name)
+        verifyPokemonSaved(name)
     }
 
+    private  fun verifyPokemonSaved(name: String){
+        viewModel.isSavedPokemon(name)
+        viewModel.saved.observe(this){
+            if (!it){
+                binding.likePokemonBtn.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun handleFavButton(name: String) {
+        binding.likePokemonBtn.setOnClickListener {
+            viewModel.savePokemonToFireStore(name)
+            Toast.makeText(this, "Added to My favorites", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+    }
 
     private fun handleBackButton() {
         binding.backBtn.setOnClickListener {

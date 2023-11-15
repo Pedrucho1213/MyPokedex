@@ -28,6 +28,7 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
     private lateinit var adapter: PokemonListAdapter
     private var pokemons = mutableListOf<PokemonItem>()
     private val viewModel: PokemonViewModel by viewModels()
+    private var favorities = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -39,10 +40,19 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
     }
 
     private fun getFavorites() {
-        pokemons.clear()
+        favorities = true
+        viewModel.getPokemonFromFireStore()
+        viewModel.pokemonFavorities.observe(this) { pokemonList ->
+            pokemons.clear()
+            pokemons.addAll(pokemonList)
+            adapter.updateData(pokemons)
+            initRecyclerView()
+        }
     }
 
     private fun getAllData() {
+        favorities = false
+        pokemons.clear()
         viewModel.fetchPokemonList()
         viewModel.pokemonList.observe(this) { pokemonList ->
             pokemons.addAll(pokemonList)
@@ -58,6 +68,7 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
     }
 
     private fun setEvents() {
+
         binding.searchTxt.setOnQueryTextListener(this)
         binding.searchTxt.setIconifiedByDefault(false)
 
@@ -81,7 +92,7 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
                 val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
                 val totalItemCount = layoutManager.itemCount
 
-                if (lastVisibleItemPosition == totalItemCount - 1 && !binding.searchTxt.isNotEmpty()) {
+                if (lastVisibleItemPosition == totalItemCount - 1 && binding.searchTxt.query != "" && !favorities ) {
                     viewModel.loadMorePokemons()
                 }
             }

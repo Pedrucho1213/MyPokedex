@@ -151,9 +151,10 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/like_job_btn"
+            android:id="@+id/like_pokemon_btn"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:visibility="gone"
             android:layout_gravity="start|center_vertical"
             android:layout_marginEnd="30dp"
             android:background="@drawable/rounded_btn_search"
