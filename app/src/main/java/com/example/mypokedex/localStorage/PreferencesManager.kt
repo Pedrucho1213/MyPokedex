@@ -4,12 +4,12 @@ package com.example.mypokedex.localStorage
 import android.content.Context
 import androidx.preference.PreferenceManager
 
-object PreferenceManager {
+object PreferencesManager {
 
-    private const val KEY_NAME = "fullName"
-    private const val KEY_UID = "uid"
-    private const val KEY_EMAIL = "email"
-    private const val KEY_LOGGED = "isLoggedIn"
+    const val KEY_NAME = "fullName"
+    const val KEY_UID = "uid"
+    const val KEY_EMAIL = "email"
+    const val KEY_LOGGED = "isLoggedIn"
 
 
     fun setLogIn(context: Context, logged: Boolean) {

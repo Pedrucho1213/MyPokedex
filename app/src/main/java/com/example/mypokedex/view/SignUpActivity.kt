@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypokedex.databinding.ActivitySignUpBinding
-import com.example.mypokedex.localStorage.PreferenceManager
+import com.example.mypokedex.localStorage.PreferencesManager
 import com.example.mypokedex.model.User
 import com.example.mypokedex.viewModel.SingUpViewModel
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -103,9 +103,9 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun saveUserPreferences(uid: String, fullName: String, email: String) {
-        PreferenceManager.saveUID(this, uid)
-        PreferenceManager.saveName(this, fullName)
-        PreferenceManager.saveEmail(this, email)
+        PreferencesManager.saveUID(this, uid)
+        PreferencesManager.saveName(this, fullName)
+        PreferencesManager.saveEmail(this, email)
     }
 
     private fun navigateToSignInActivity() {

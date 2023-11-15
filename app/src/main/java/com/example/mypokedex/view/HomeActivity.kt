@@ -10,13 +10,12 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isNotEmpty
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mypokedex.R
 import com.example.mypokedex.adapters.pokemonList.PokemonListAdapter
 import com.example.mypokedex.databinding.ActivityHomeBinding
-import com.example.mypokedex.localStorage.PreferenceManager
+import com.example.mypokedex.localStorage.PreferencesManager
 import com.example.mypokedex.model.PokemonItem
 import com.example.mypokedex.viewModel.PokemonViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -162,7 +161,7 @@ class HomeActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
     private fun performLogout() {
         viewModel.signOut().observe(this) {
             if (it) {
-                PreferenceManager.logOut(this)
+                PreferencesManager.logOut(this)
                 val intent = Intent(this, SignInActivity::class.java)
                 startActivity(intent)
                 finish()

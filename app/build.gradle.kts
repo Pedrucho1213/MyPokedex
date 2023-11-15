@@ -76,6 +76,9 @@ dependencies {
 
     implementation (libs.androidx.browser)
 
+    testImplementation ("org.mockito:mockito-core:3.12.4")
+    androidTestImplementation ("org.mockito:mockito-android:3.12.4")
+
 }
 
 

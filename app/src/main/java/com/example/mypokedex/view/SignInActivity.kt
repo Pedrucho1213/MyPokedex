@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypokedex.R
 import com.example.mypokedex.databinding.ActivitySignInBinding
-import com.example.mypokedex.localStorage.PreferenceManager
+import com.example.mypokedex.localStorage.PreferencesManager
 import com.example.mypokedex.viewModel.SignInViewModel
 
 class SignInActivity : AppCompatActivity() {
@@ -32,14 +32,14 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun verifyLogin() {
-        val isLoggedIn = PreferenceManager.getLogIn(this)
+        val isLoggedIn = PreferencesManager.getLogIn(this)
         if (isLoggedIn) {
             redirectToHomePage()
         }
     }
 
     private fun redirectToHomePage() {
-        val welcomeMessage = getString(R.string.welcome_message, PreferenceManager.getName(this))
+        val welcomeMessage = getString(R.string.welcome_message, PreferencesManager.getName(this))
         Toast.makeText(this, welcomeMessage, Toast.LENGTH_SHORT).show()
         val intent = Intent(applicationContext, HomeActivity::class.java)
         startActivity(intent)
@@ -76,7 +76,7 @@ class SignInActivity : AppCompatActivity() {
         if (email.isNotEmpty() && pass.isNotEmpty()) {
             viewModel.loginWithEmail(email, pass).observe(this) { result ->
                 if (result.isSuccessful) {
-                    PreferenceManager.setLogIn(this, true)
+                    PreferencesManager.setLogIn(this, true)
                     getUserData(email)
                 } else {
                     Toast.makeText(this, R.string.user_not_found, Toast.LENGTH_LONG).show()
@@ -86,16 +86,16 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun showWelcomeMessage() {
-        val fullName = PreferenceManager.getName(this)
+        val fullName = PreferencesManager.getName(this)
         Toast.makeText(this, "Bienvenido $fullName", Toast.LENGTH_SHORT).show()
     }
 
     private fun getUserData(email: String) {
         viewModel.getCredentials(email).observe(this) { user ->
             if (user != null) {
-                PreferenceManager.saveUID(this, user.uid.toString())
-                PreferenceManager.saveName(this, user.fullName.toString())
-                PreferenceManager.saveEmail(this, email)
+                PreferencesManager.saveUID(this, user.uid.toString())
+                PreferencesManager.saveName(this, user.fullName.toString())
+                PreferencesManager.saveEmail(this, email)
                 redirectToHomePage()
             }
         }
