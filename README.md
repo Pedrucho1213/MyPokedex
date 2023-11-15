@@ -21,7 +21,7 @@ MyPokedex is an Android application that allows users to visualize pokemon's and
 - Android Jetpack: Android Jetpack's ViewModel component is used to implement the MVVM architecture and manage the lifecycle of activities and fragments.
 - Data Binding: Data Binding is used to declaratively bind the view model data to the user interface.
 - XML: XML is used for view development and defining the application's user interface.
-- Firebase Firestore: Firebase Firestore is used as a cloud database to store and synchronize user posts.
+- Firebase Firestore: Firebase Firestore is used as a cloud database to store and synchronize user pokemon's.
 - Firebase Authentication: Firebase Authentication is used to allow users to authenticate in the application using their email and password.
 - Shared Preferences: Shared Preferences are used to store information locally, such as the user's session state.
 - Material Design: The application follows the principles of Material Design to provide a modern and consistent user experience.
